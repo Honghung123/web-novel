@@ -123,5 +123,3 @@ Ensure you replace `your_api_key` and other values with actual Firebase credenti
 ---
 
 ## 📜 License
-
-This project
