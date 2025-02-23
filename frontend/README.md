@@ -130,4 +130,4 @@ This project is licensed under the **MIT License**.
 
 ## 👨‍💻 Contributors
 
--   **Your Name** - \_Frontend Developer
+-   **Your Name** - \_Frontend Develop
