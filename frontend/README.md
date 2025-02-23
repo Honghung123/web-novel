@@ -121,5 +121,3 @@ Ensure you replace `your_api_key` and other values with actual Firebase credenti
 5. **Create a Pull Request!**
 
 ---
-
-## 📜
