@@ -1,0 +1,18 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: container_web-comic-application
+    ports:
+      - 8080:8080
+    volumes:
+      - type: bind
+        source: ./src
+        target: /app/src 
+    networks:
+      - web-comic-network
+
+networks:
+  web-comic-network:
+    driver: bridge

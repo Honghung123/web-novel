@@ -1,0 +1,64 @@
+# Tại sao dùng application.yml
+#  - Tốc độ load file nhanh hơn application.properties và cấu trúc dạng tree đễ đọc, ngắn gọn hơn
+#  - Nó là Best Practice cho các cấu hình cần load lên trong thời điểm Compile-time như: cấu hình Database,...
+
+server:
+  port: 8080
+
+spring:
+  application:
+    name: comic
+  output:
+    ansi:
+      enabled: DETECT
+
+app.config:
+  firebase:
+    authentication:
+      projectId: spring-boot-firestore-f843c
+      projectName: Spring boot Firestore
+      appName: department-store
+      apiKey: AIzaSyA4Ix8zhhpUXEbKeOZqIL93Z9OiQqxvpWM
+      authenticationUrl: https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=
+      googleCredentials: firebase_adminsdk.json
+    bucket:
+      name: spring-boot-ecommerce-8c178.appspot.com
+      bucketFileurl: https://firebasestorage.googleapis.com/v0/b/spring-boot-ecommerce-8c178.appspot.com/o/
+    clientToken: ft9RgYbBqvqhFmtxbsQ5ul:APA91bEPI5sRctZ70Z-cGRzGInpqg9e_B_K3wDr25qnQEfbx73GVkWio80GhbZRPKYb_hZXELqSmA3oCm0YNVPMeDa1z2dKzJI_Fairu6Ux0fl9VkFLinWw
+
+api:
+  prefix: /api/v1
+
+logging:
+  level:
+    root: ERROR
+    org:
+      springframework:
+        web: DEBUG
+    com:
+      group17:
+        comic:
+          service: INFO
+  pattern:
+    console: '%d{dd-MM-yyyy HH:mm:ss} %-5level %logger{36} - %m%n'
+    file: '%d{dd-MM-yyyy HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n'
+
+comic:
+  api:
+    document_name: Comic API Documentation
+    description: This is the api comic documentation only for the group 17
+    version: v1.0.0
+    server:
+      local:
+        url: http://localhost:${server.port}
+        description: Local server      
+  base_dir: /src/main/java/com/group17/comic
+  plugin:
+    crawler:
+      crawler_package_name: com.group17.comic.plugins.crawler.concretes
+      crawler_directory: /plugins/crawler/concretes
+      default_crawler_name: Tang Thu Vien
+    converter:
+      converter_package_name: com.group17.comic.plugins.exporter.concretes
+      converter_directory: /plugins/exporter/concretes
+      default_converter_name: PDF
