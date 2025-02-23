@@ -1,70 +1,134 @@
-# Getting Started with Create React App
+# 📖 Novel Plugin System - Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Overview
 
-## Available Scripts
+This is the **frontend** of the **Novel Plugin System**, a web application that allows users to **read novels, switch between sources, and download files for offline reading**.
 
-In the project directory, you can run:
+### ✨ Key Features:
 
-### `npm start`
+-   **Modern UI** built with **ReactJS**, **TailwindCSS**, and **Material UI**.
+-   **Dynamic Plugin System** for switching between different novel sources.
+-   **Firebase Integration**:
+    -   **User Authentication** with Firebase.
+    -   **Push Notifications** using Firebase Cloud Messaging (FCM).
+    -   **Cloud Storage** for managing downloaded files.
+-   **Drag and Drop Support** for managing novel lists.
+-   **Responsive Design** for seamless experience across all devices.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 🛠 Technologies Used
 
-### `npm test`
+### **Frontend Stack**
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+-   **ReactJS** - Core frontend framework.
+-   **TailwindCSS** - Utility-first CSS framework for styling.
+-   **Material UI** - Component library for UI components.
 
-### `npm run build`
+### **Dependencies**
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+| Dependency      | Description                                         |
+| --------------- | --------------------------------------------------- |
+| `react`         | Core React library                                  |
+| `@mui/material` | Material UI components                              |
+| `@dnd-kit/core` | Drag-and-drop support                               |
+| `firebase`      | Firebase authentication, notifications, and storage |
+| `axios`         | HTTP client for API requests                        |
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 📁 Project Structure
 
-### `npm run eject`
+```
+frontend/
+│── src/
+│   ├── components/       # Reusable UI components
+│   ├── pages/            # Page components (Home, Login, etc.)
+│   ├── hooks/            # Custom React hooks
+│   ├── utils/            # Helper functions
+│   ├── services/         # API services and Firebase interactions
+│── public/
+│── package.json
+│── tailwind.config.js
+│── README.md
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+---
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 🚀 Getting Started
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### **1️⃣ Prerequisites**
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+-   **Node.js 18+**
+-   **npm** (or **yarn**)
 
-## Learn More
+### **2️⃣ Installation**
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Clone the repository and install dependencies:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```sh
+git clone https://github.com/your-repo/novel-plugin-system.git
+cd frontend
+npm install
+```
 
-### Code Splitting
+### **3️⃣ Running the App**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Start the development server:
 
-### Analyzing the Bundle Size
+```sh
+npm start
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+The application will be available at:  
+👉 `http://localhost:3000`
 
-### Making a Progressive Web App
+### **4️⃣ Building for Production**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+To create an optimized production build:
 
-### Advanced Configuration
+```sh
+npm run build
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+The output will be in the `build/` folder.
 
-### Deployment
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## 🔥 Firebase Configuration
 
-### `npm run build` fails to minify
+To enable Firebase features, create a `.env` file in the **frontend** directory and add:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```env
+REACT_APP_FIREBASE_API_KEY=your_api_key
+REACT_APP_FIREBASE_AUTH_DOMAIN=your_auth_domain
+REACT_APP_FIREBASE_PROJECT_ID=your_project_id
+REACT_APP_FIREBASE_STORAGE_BUCKET=your_storage_bucket
+REACT_APP_FIREBASE_MESSAGING_SENDER_ID=your_messaging_sender_id
+REACT_APP_FIREBASE_APP_ID=your_app_id
+```
+
+Ensure you replace `your_api_key` and other values with actual Firebase credentials.
+
+---
+
+## 🤝 Contribution Guide
+
+1. **Fork** the repository.
+2. **Create a new branch**: `git checkout -b feature-branch`
+3. **Commit your changes**: `git commit -m "Add new feature"`
+4. **Push to the branch**: `git push origin feature-branch`
+5. **Create a Pull Request!**
+
+---
+
+## 📜 License
+
+This project is licensed under the **MIT License**.
+
+---
+
+## 👨‍💻 Contributors
+
+-   **Your Name** - _Frontend Developer_
+-   **Other Team Members** - _Designers, Developers, QA Engineers_

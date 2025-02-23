@@ -20,7 +20,6 @@ public class NotificationController {
 
     @PostMapping("/fcm/token")
     public void setClientToken(@RequestBody ClientToken token) {
-        System.out.println("===== = = = = = > " + token.token());
         globalStorage.put("clientToken", token.token());
     }
 }

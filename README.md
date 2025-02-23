@@ -1,62 +1,151 @@
-# Welcome
+# Novel Plugin System
 
-A project for reading novel, comic
+## Overview
 
--   Crawl data from [Tang Thu Vien](https://truyen.tangthuvien.vn/), [Truyen Chu TH](https://truyenchuth.com/)
--   Crawl data + API from [Truyen Full](https://truyenfull.vn/) and [API Truyen Full](https://www.postman.com/apptimviec/workspace/app-truyenfull-vn/documentation/1352944-a47fadc6-15df-4c8a-a26b-798586316a6d)
+This project is a **plugin-based website** for reading novels, allowing users to **read, switch between multiple novel sources, and download files for offline reading**.
 
--   Html to PDF API: [PDF from HTML](https://developer.pdf.co/api/pdf-from-html/index.html)
+### Key Features:
 
----
+-   **Dynamic Plugin System**: Load and update plugins at runtime using the **Reflection API**.
+-   **Web Scraping**: Crawl novel data from multiple online sources.
+-   **File Conversion**: Convert HTML content into formats like **PDF, AZW3, and MP3**.
+-   **Firebase Integration**:
+    -   **Push Notifications** via **Firebase Cloud Messaging (FCM)**.
+    -   **User Authentication** using **Firebase Authentication**.
+    -   **Cloud Storage** for storing downloaded files.
 
-## Api document: [API Document using Swagger](http://localhost:8080/swagger-ui/index.html)
+## Technologies Used
 
-## Front-end
+### Frontend (ReactJS)
 
-### Prerequisite
+-   **ReactJS**: Core frontend framework.
+-   **TailwindCSS**: Styling framework for a modern UI.
+-   **Material UI**: Component library for a clean and accessible design.
+-   **Dependencies**:
+    -   `@dnd-kit/core`: Drag and drop support.
+    -   `@mui/material`: Material UI components.
+    -   `firebase`: Firebase authentication, storage, and push notifications.
+    -   `axios`: HTTP client for API requests.
 
--   npm, npx
--   NodeJs
+### Backend (Spring Boot)
 
-### Technical Stacks
-
--   React
--   TailwindCss
-
-## Back-end
-
-### Prerequisite
-
--   JDK 17+
--   Maven 3.5+
--   IDE: IntelliJ, Eclipse or NetBean, ...
--   Alternate IDE: VS Code with **Spring Boot Extension Pack** extension.
-
-### Technical Stacks
-
--   Java 17
--   Spring Boot 3.2.4
--   Maven 3.5+
-
-### Dependencies
-
--   Lombok
--   JSoup v1.15.3
--   Gson v2.10.1
--   Swagger MVC UI v2.5.0
--   OkHttp v4.10.0
--   HttpClient
+-   **Java & Spring Boot**: Core backend technologies.
+-   **PostgreSQL**: Database for storing novel data.
+-   **Swagger & SpringDoc**: API documentation.
+-   **Firebase Admin SDK**: Push notifications, authentication, and storage.
+-   **Dependencies**:
+    -   `firebase-admin`: Firebase integration.
+    -   `spring-boot-starter-validation`: Input validation.
+    -   `spring-boot-starter-web`: REST API development.
+    -   `jsoup`: Web scraping.
+    -   `springdoc-openapi-starter-webmvc-ui`: OpenAPI documentation.
+    -   `gson`: JSON parsing.
+    -   `okhttp`: HTTP client for API communication.
+    -   `httpclient`: Additional HTTP functionalities.
 
 ---
 
-## Others
+## Project Structure
 
--   SonarQube
-    -   How to install:
-        -   Prerequisites: Docker, Maven
-        *   For Back-end
-        1. Pull the SonarQube image from Docker Hub: **docker pull sonarqube:lst-community**
-        2. Run the image at the port 9000: **docker run --name=docker-sonarqube -p=9000:9000 -d sonarqube:lts-community**
-        3. Open localhost:9000 to login, default username and password is "admin"
-        4. At backend/comic folder, run this command in the terminal : **mvn sonar:sonar -D sonar.login=your_username -D sonar.password=your_password**
-        5. Wait until it done, then open this link: **http://localhost:9000/dashboard?id=com.group17%3Acomic**
+```
+novel-plugin-system/
+│── frontend/         # ReactJS Frontend
+│   ├── src/
+│   ├── public/
+│   ├── package.json
+│   ├── tailwind.config.js
+│   └── README.md
+│
+│── backend/          # Spring Boot Backend
+│   ├── src/
+│   │   ├── main/java/com/novel/
+│   │   ├── main/resources/
+│   │   ├── test/
+│   ├── pom.xml
+│   └── README.md
+│
+│── README.md         # Project Documentation
+│── .gitignore
+│── LICENSE
+```
+
+---
+
+## Setup Instructions
+
+### 1️⃣ Backend (Spring Boot)
+
+#### **Requirements**
+
+-   Java 17+
+-   Maven
+-   PostgreSQL Database
+
+#### **Installation**
+
+```sh
+cd backend
+mvn clean install
+```
+
+#### **Run Application**
+
+```sh
+mvn spring-boot:run
+```
+
+#### **API Documentation**
+
+Access Swagger UI at:  
+`http://localhost:8080/swagger-ui.html`
+
+---
+
+### 2️⃣ Frontend (ReactJS)
+
+#### **Requirements**
+
+-   Node.js 18+
+-   npm or yarn
+
+#### **Installation**
+
+```sh
+cd frontend
+npm install
+```
+
+#### **Run Application**
+
+```sh
+npm start
+```
+
+#### **Build for Production**
+
+```sh
+npm run build
+```
+
+---
+
+## Contribution Guide
+
+1. **Fork** the repository.
+2. **Create a new branch**: `git checkout -b feature-branch`
+3. **Commit your changes**: `git commit -m "Add new feature"`
+4. **Push to the branch**: `git push origin feature-branch`
+5. **Create a Pull Request**
+
+---
+
+## License
+
+This project is licensed under the **MIT License**.
+
+---
+
+## Contributors
+
+-   **Your Name** - _Project Lead_
+-   **Other Contributors** - _Developers & Collaborators_

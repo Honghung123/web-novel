@@ -1,5 +1,6 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/messaging';
+import { getAuth } from 'firebase/auth';
 
 const firebaseConfig = {
     apiKey: 'AIzaSyA4Ix8zhhpUXEbKeOZqIL93Z9OiQqxvpWM',
@@ -46,5 +47,5 @@ firebaseMessaging
         console.log('An error occurred while retrieving token. ', err);
         // ...
     });
-
-export { firebase as FirebaseApp, firebaseMessaging };
+const firebaseAuth = getAuth(firebase.app());
+export { firebase as FirebaseApp, firebaseMessaging, firebaseAuth };

@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Primary;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.group17.comic.enums.AuthConfigProperties;
 import com.group17.comic.utils.FileUtils;
@@ -89,6 +90,11 @@ public class FirebaseConfig {
     @Bean
     FirebaseMessaging firebaseMessaging(FirebaseApp firebaseApp) {
         return FirebaseMessaging.getInstance(firebaseApp);
+    }
+
+    @Bean
+    FirebaseAuth firebaseAuth(FirebaseApp firebaseApp) {
+        return FirebaseAuth.getInstance(firebaseApp);
     }
 
     // @Bean
