@@ -21,7 +21,21 @@ firebaseMessaging
     .getToken({ vapidKey: process.env.FIREBASE_KEY_PAIR })
     .then((currentToken) => {
         if (currentToken) {
-            console.log(currentToken);
+            fetch(`${process.env.REACT_APP_API_URL}/notification/fcm/token`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    token: currentToken,
+                }),
+            }).then((response) => {
+                if (response.ok) {
+                    console.log('Token sent to the server');
+                } else {
+                    console.log('Token not sent to the server');
+                }
+            });
         } else {
             // Show permission request UI
             console.log('No registration token available. Request permission to generate one.');
