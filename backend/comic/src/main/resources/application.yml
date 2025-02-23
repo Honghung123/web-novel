@@ -34,7 +34,7 @@ logging:
     root: ERROR
     org:
       springframework:
-        web: DEBUG
+        web: INFO
     com:
       group17:
         comic:

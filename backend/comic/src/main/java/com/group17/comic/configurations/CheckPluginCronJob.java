@@ -2,7 +2,6 @@ package com.group17.comic.configurations;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.LocalTime;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -11,14 +10,16 @@ import org.springframework.stereotype.Component;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.Message;
 import com.google.firebase.messaging.Notification;
+import com.group17.comic.enums.GlobalStorage;
 import com.group17.comic.plugins.crawler.IDataCrawler;
 import com.group17.comic.plugins.exporter.IFileExporter;
 import com.group17.comic.utils.PluginUtility;
 
+import lombok.RequiredArgsConstructor;
+
 @Component
+@RequiredArgsConstructor
 public class CheckPluginCronJob {
-    @Value("${app.config.firebase.clientToken}")
-    String clientToken;
 
     @Value("${comic.base_dir}")
     String projectDirectory;
@@ -35,6 +36,7 @@ public class CheckPluginCronJob {
     @Value("${comic.plugin.converter.converter_directory}")
     String exporterDirectory;
 
+    private final GlobalStorage globalStorage;
     String baseDir = System.getProperty("user.dir");
     private int totalCrawlerPlugin = 0;
     private int totalExporterPlugin = 0;
@@ -68,8 +70,9 @@ public class CheckPluginCronJob {
             Path converterAbsolutePath = Paths.get(baseDir, projectDirectory, exporterDirectory);
             var exporterClasses = PluginUtility.getAllPluginsFromFolderWithoutInstantiation(
                     converterAbsolutePath.toString(), exporterPackageName, IFileExporter.class);
-            System.out.println(LocalTime.now() + "  -->  total old/new exporter plugins: " + totalExporterPlugin + "/"
-                    + exporterClasses.size());
+            // System.out.println(LocalTime.now() + "  -->  total old/new exporter plugins: " + totalExporterPlugin +
+            // "/"
+            //         + exporterClasses.size());
             if (totalExporterPlugin == 0) {
                 totalExporterPlugin = exporterClasses.size();
             } else if (totalExporterPlugin != exporterClasses.size()) {
@@ -86,6 +89,10 @@ public class CheckPluginCronJob {
     }
 
     void pushNotification(String type, Notification notification) {
+        String clientToken = (String) globalStorage.get("clientToken");
+        if (clientToken == null) {
+            return;
+        }
         Message msg = Message.builder()
                 .setToken(clientToken)
                 .setNotification(notification)

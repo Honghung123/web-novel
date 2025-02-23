@@ -21,10 +21,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.google.auth.oauth2.GoogleCredentials;
-import com.google.firebase.messaging.FirebaseMessaging;
-import com.google.firebase.messaging.Message;
-import com.google.firebase.messaging.Notification;
 import com.group17.comic.dtos.request.AlternatedChapterRequest;
 import com.group17.comic.dtos.request.ChapterRequest;
 import com.group17.comic.dtos.response.ChapterFile;
@@ -51,9 +47,6 @@ public class ComicController {
 
     @Qualifier("exporterPluginServiceV1")
     private final IExporterPluginService exporterPluginService;
-
-    private final FirebaseMessaging firebaseMessaging;
-    private final GoogleCredentials ggCredentials;
 
     @GetMapping("/genres")
     @Operation(
@@ -231,28 +224,5 @@ public class ComicController {
     public SuccessfulResponse<List<ConverterPlugin>> getAllConverterPlugins() {
         var converters = exporterPluginService.getAllPlugins();
         return new SuccessfulResponse<>(HttpStatus.OK, "Get all converter servers successfully", converters);
-    }
-
-    @GetMapping("/test")
-    public String getMethodName() {
-        String clientToken =
-                "ft9RgYbBqvqhFmtxbsQ5ul:APA91bEPI5sRctZ70Z-cGRzGInpqg9e_B_K3wDr25qnQEfbx73GVkWio80GhbZRPKYb_hZXELqSmA3oCm0YNVPMeDa1z2dKzJI_Fairu6Ux0fl9VkFLinWw";
-        // if (clientToken == null) return "Failed to get access token";
-        Notification notification = Notification.builder()
-                .setBody("This is a message")
-                .setTitle("System has just updated")
-                .build();
-        Message msg = Message.builder()
-                .setToken(clientToken)
-                .setNotification(notification)
-                .putData("type", "UPDATE_PLUGIN")
-                .build();
-        try {
-            String response = FirebaseMessaging.getInstance().send(msg);
-            return "Sent message via Firebase Messaging with response: " + response;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "Failed to send message via Firebase Messaging";
-        }
     }
 }

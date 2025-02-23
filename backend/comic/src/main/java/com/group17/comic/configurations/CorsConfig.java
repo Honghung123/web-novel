@@ -20,7 +20,7 @@ public class CorsConfig {
         config.setAllowedOrigins(List.of(
                 "http://localhost:3000",
                 "http://localhost:3001",
-                "https://web-comic-57tgloqam-hungs-projects-fb1b48cc.vercel.app",
+                "https://web-novel-ruby.vercel.app/",
                 "https://web-comic-production.up.railway.app"));
         config.addAllowedHeader("*");
         config.addAllowedMethod("*"); // Accept all methods
