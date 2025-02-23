@@ -131,4 +131,4 @@ This project is licensed under the **MIT License**.
 ## 👨‍💻 Contributors
 
 -   **Your Name** - _Frontend Developer_
--   **Other Team Members** - \_Designers, Developers, QA Engineer
+-   **Other Team Members** - \_Designers, Developers, QA Enginee
