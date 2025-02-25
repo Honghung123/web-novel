@@ -58,7 +58,7 @@ novel-plugin-system/
 │
 │── backend/          # Spring Boot Backend
 │   ├── src/
-│   │   ├── main/java/com/novel/
+│   │   ├── main/java/com/
 │   │   ├── main/resources/
 │   │   ├── test/
 │   ├── pom.xml
@@ -66,7 +66,6 @@ novel-plugin-system/
 │
 │── README.md         # Project Documentation
 │── .gitignore
-│── LICENSE
 ```
 
 ---
@@ -80,6 +79,7 @@ novel-plugin-system/
 -   Java 17+
 -   Maven
 -   PostgreSQL Database
+-   Firebase config JSON file
 
 #### **Installation**
 
@@ -87,6 +87,10 @@ novel-plugin-system/
 cd backend
 mvn clean install
 ```
+
+### ** Config firebase admin SDK **
+
+You will have to download a Firebase config JSON file from Firebase when creating your Firebase project. Then, rename to `firebase-adminsdk.json` and place it in the `backend/src/main/resources` directory.
 
 #### **Run Application**
 
@@ -107,6 +111,7 @@ Access Swagger UI at:
 
 -   Node.js 18+
 -   npm or yarn
+-   Firebase config object
 
 #### **Installation**
 
@@ -114,6 +119,26 @@ Access Swagger UI at:
 cd frontend
 npm install
 ```
+
+#### **Config firebase identity**
+
+Please refer to the [Firebase documentation](https://firebase.google.com/docs/web/setup#config-object) for instructions on how to configure your Firebase project. Then replace the `firebaseConfig` object in the `public/firebase-messaging-sw.js` file with your own configuration.
+
+```js
+const firebaseConfig = {
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_AUTH_DOMAIN",
+    projectId: "YOUR_PROJECT_ID",
+    storageBucket: "YOUR_STORAGE_BUCKET",
+    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+    appId: "YOUR_API_ID",
+    measurementId: "YOUR_MEASUREMENT_ID",
+};
+```
+
+#### **Config firebase authentication**
+
+Currently, this project uses Firebase authentication with username/password, Google and Github provider. So, you will have to config with client id and secret key for [Google](https://console.developers.google.com/auth/clients) and [Github](https://github.com/settings/applications/new) provider.
 
 #### **Run Application**
 
@@ -136,16 +161,3 @@ npm run build
 3. **Commit your changes**: `git commit -m "Add new feature"`
 4. **Push to the branch**: `git push origin feature-branch`
 5. **Create a Pull Request**
-
----
-
-## License
-
-This project is licensed under the **MIT License**.
-
----
-
-## Contributors
-
--   **Your Name** - _Project Lead_
--   **Other Contributors** - _Developers & Collaborators_
