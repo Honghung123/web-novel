@@ -1,6 +1,8 @@
 package com.group17.comic.controllers;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,7 +12,7 @@ import com.group17.comic.dtos.request.FirebaseSignInRequest;
 import com.group17.comic.dtos.request.RefreshTokenRequest;
 import com.group17.comic.dtos.request.RegisterRequest;
 import com.group17.comic.dtos.response.FirebaseSignInResponse;
-import com.group17.comic.dtos.response.FirebaseSignUpResponse;
+import com.group17.comic.dtos.response.FirebaseUserInfoResponse;
 import com.group17.comic.dtos.response.RefreshTokenResponse;
 import com.group17.comic.dtos.response.SuccessfulResponse;
 import com.group17.comic.service.IFirebaseAuthService;
@@ -25,8 +27,14 @@ import lombok.RequiredArgsConstructor;
 public class AuthController {
     private final IFirebaseAuthService firebaseAuthService;
 
+    @GetMapping("/info/{idToken}")
+    public SuccessfulResponse<FirebaseUserInfoResponse> handleGetUserInfoRequest(@PathVariable String idToken) {
+        var response = firebaseAuthService.getUserInfo(idToken);
+        return new SuccessfulResponse<>(HttpStatus.OK, "Get user info successfully", response);
+    }
+
     @PostMapping("/register")
-    public SuccessfulResponse<FirebaseSignUpResponse> handleRegisterUser(@RequestBody RegisterRequest request) {
+    public SuccessfulResponse<FirebaseUserInfoResponse> handleRegisterUser(@RequestBody RegisterRequest request) {
         var response = firebaseAuthService.createNewUser(request);
         return new SuccessfulResponse<>(HttpStatus.OK, "Register user successfully", response);
     }

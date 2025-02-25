@@ -8,13 +8,15 @@ import org.springframework.web.client.RestClient;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
+import com.google.firebase.auth.FirebaseToken;
 import com.google.firebase.auth.UserRecord;
 import com.google.firebase.auth.UserRecord.CreateRequest;
+import com.google.firebase.auth.UserRecord.UpdateRequest;
 import com.group17.comic.dtos.request.FirebaseSignInRequest;
 import com.group17.comic.dtos.request.RefreshTokenRequest;
 import com.group17.comic.dtos.request.RegisterRequest;
 import com.group17.comic.dtos.response.FirebaseSignInResponse;
-import com.group17.comic.dtos.response.FirebaseSignUpResponse;
+import com.group17.comic.dtos.response.FirebaseUserInfoResponse;
 import com.group17.comic.dtos.response.RefreshTokenResponse;
 import com.group17.comic.service.IFirebaseAuthService;
 
@@ -36,25 +38,52 @@ public class FirebaseAuthServiceImpl implements IFirebaseAuthService {
     private static final String DUPLICATE_ACCOUNT_ERROR = "EMAIL_EXISTS";
 
     @Override
-    public FirebaseSignUpResponse createNewUser(RegisterRequest registerRequest) {
+    public FirebaseUserInfoResponse getUserInfo(String idToken) {
+        try {
+            FirebaseToken decodedToken = FirebaseAuth.getInstance().verifyIdToken(idToken);
+            String uid = decodedToken.getUid();
+            UserRecord user = FirebaseAuth.getInstance().getUser(uid);
+            return FirebaseUserInfoResponse.from(user);
+        } catch (Exception e) { // Catch Firebase exceptions (FirebaseAuthException, etc.)
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public FirebaseUserInfoResponse createNewUser(RegisterRequest registerRequest) {
         CreateRequest request = new CreateRequest();
+        String formatNumber = registerRequest.phoneNumber() == null
+                ? null
+                : (registerRequest.phoneNumber().startsWith("0")
+                        ? "+84" + registerRequest.phoneNumber().substring(1)
+                        : "+84" + registerRequest.phoneNumber());
         request.setEmail(registerRequest.email());
         request.setPassword(registerRequest.password());
         request.setDisplayName(registerRequest.displayName());
+        if (registerRequest.phoneNumber() != null) {
+            request.setPhoneNumber(formatNumber);
+        }
+        request.setPhotoUrl(registerRequest.photoUrl());
         request.setEmailVerified(Boolean.TRUE);
 
         try {
             UserRecord userRecord = FirebaseAuth.getInstance().createUser(request);
-            return FirebaseSignUpResponse.builder()
-                    .userId(userRecord.getUid())
-                    .email(userRecord.getEmail())
-                    .displayName(userRecord.getDisplayName())
-                    .build();
+            return FirebaseUserInfoResponse.from(userRecord);
         } catch (FirebaseAuthException exception) {
-            if (exception.getMessage().contains(DUPLICATE_ACCOUNT_ERROR)) {
-                throw new RuntimeException("Account with given email-id already exists");
+            if (!exception.getMessage().contains(DUPLICATE_ACCOUNT_ERROR)) {
+                throw new RuntimeException("Error creating user: " + exception.getMessage());
             }
-            throw new RuntimeException(exception);
+            UpdateRequest updateRequest = new UpdateRequest(registerRequest.uid());
+            updateRequest.setDisplayName(registerRequest.displayName());
+            updateRequest.setPhoneNumber(formatNumber == null ? null : "+84" + formatNumber);
+            updateRequest.setPhotoUrl(registerRequest.photoUrl());
+            updateRequest.setPassword(registerRequest.password());
+            try {
+                UserRecord userRecord = FirebaseAuth.getInstance().updateUser(updateRequest);
+                return FirebaseUserInfoResponse.from(userRecord);
+            } catch (Exception e) {
+                throw new RuntimeException("Error updating user: " + e.getMessage());
+            }
         }
     }
 
