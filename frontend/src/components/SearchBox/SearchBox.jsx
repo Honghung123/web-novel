@@ -123,7 +123,7 @@ function SearchBox() {
     }, [searchParams.get('genre')]);
 
     return (
-        <div className="flex m-[20px]">
+        <div className="flex">
             <FormControl className="lg:w-[120px] w-[100px]">
                 <InputLabel id="genres-label">Thể loại</InputLabel>
                 <Select
