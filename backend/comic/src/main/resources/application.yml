@@ -46,7 +46,7 @@ logging:
 comic:
   api:
     document_name: Comic API Documentation
-    description: This is the api comic documentation only for the group 17
+    description: This is the api documentation for Comic project
     version: v1.0.0
     server:
       local:

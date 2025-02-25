@@ -101,7 +101,7 @@ mvn spring-boot:run
 #### **API Documentation**
 
 Access Swagger UI at:  
-`http://localhost:8080/swagger-ui.html`
+`http://localhost:8080/swagger-ui/index.html`
 
 ---
 
@@ -138,7 +138,7 @@ const firebaseConfig = {
 
 #### **Config firebase authentication**
 
-Currently, this project uses Firebase authentication with username/password, Google and Github provider. So, you will have to config with client id and secret key for [Google](https://console.developers.google.com/auth/clients) and [Github](https://github.com/settings/applications/new) provider.
+Currently, this project uses Firebase authentication with username/password, Google and Github provider. So, you will have to config with client id and secret key for [Google](https://console.developers.google.com/auth/clients) and [Github](https://github.com/settings/applications/new) provider at your Firebase console panel.
 
 #### **Run Application**
 
